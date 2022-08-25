@@ -1,0 +1,2 @@
+#device      mountpoint   fstype  options     dump   fsck
+/dev/sda1    /Disk1       ext4    defaults    0      1

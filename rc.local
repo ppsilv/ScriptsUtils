@@ -1,0 +1,5 @@
+#!/bin/bash
+#copie esse arquivo para /etc e garante que ele tenha direito de execução
+/home/pdsilva/bin/fan.sh
+exit 0
+
