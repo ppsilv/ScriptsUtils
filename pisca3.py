@@ -5,6 +5,7 @@ except RuntimeError:
 import os
 import subprocess
 import time
+import threading
 
 def current_milli_time():
   return round(time.time() * 1000)
@@ -34,11 +35,15 @@ ledAceso = 0.5
 ledApagado = 1.5
 ledStatus = False
 ledLastTime = current_milli_time()
+aceso = 1000
+apagado = 1000
+
+
 
 millisecond = 0
 
 my_logger.debug("pisca2: *******************************************************************************************...")
-my_logger.debug("pisca2:                            System pisca initialing...")
+my_logger.debug("pisca2:                            System pisca initializing...")
 
 def readbutton():
     status = gpio.input(pinShutdown)
@@ -49,13 +54,42 @@ def readbutton():
         with open(os.devnull, "wb") as limbo:
           ret=subprocess.Popen(["shutdown", "-h", "now"],stdout=limbo, stderr=limbo).wait()
 
-while True:
+def piscaLed(var):
+  global led, ledApagado, LedAceso  
+  while True:
     gpio.output(led, 0)
-    time.sleep(ledAceso)
-    
-    readbutton()
-
-    gpio.output(led, 1)
     time.sleep(ledApagado)
+    
+    gpio.output(led, 1)
+    time.sleep(ledAceso)
 
+
+
+def piscaLed2():
+  global led, ledStatus, ledLastTime, apagado, aceso  
+  while True:  
+    if ledStatus == False:
+        if ( ledLastTime + apagado ) < current_milli_time():
+            ledLastTime = current_milli_time()
+            ledStatus = True
+            gpio.output(led, 0)
+    else:
+        if ( ledLastTime + aceso ) < current_milli_time():
+            ledLastTime = current_milli_time()
+            ledStatus = False
+            gpio.output(led, 1)
     readbutton()
+
+ledLastTime = current_milli_time()
+print("ledLastTime ",ledLastTime)
+time.sleep(1)
+ledLastTime = current_milli_time()
+print("ledLastTime ",ledLastTime)
+
+x = threading.Thread(target=piscaLed, args=(1,))
+x.start()
+
+while True:
+    readbutton()
+    time.sleep(0.1)
+
