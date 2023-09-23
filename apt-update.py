@@ -26,10 +26,9 @@ os.system('apt update 1>/tmp/aptupdate.log 2>/dev/null')
 
 
 if check_string():
-    my_logger.debug("Atualizacao: System is up to date...")
+  my_logger.debug("System is up to date...")
 else:
-  my_logger.debug("Atualizacao: System is upgrading...")
-  os.system('apt -y upgrade 1>>/tmp/aptupdate.log 2>/dev/null')
+  os.system('apt -y upgrade 1>/tmp/aptupdate.log 2>/dev/null')
 
 my_logger.debug("Process "+pname+ " finished ")
 

@@ -1,0 +1,1 @@
+speaker-test --channels 2 --test wav --device hw:2,0

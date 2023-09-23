@@ -18,16 +18,15 @@ my_logger.addHandler(handler)
 try:
 	import RPi.GPIO as gpio
 except RuntimeError:
+	print("Error: Impossible to import GPIO")
 	my_logger.critical("Error: Impossible to import GPIO")
 
 #gpio.setmode(gpio.BOARD)
 gpio.setmode(gpio.BCM)
 gpio.setwarnings(False)
 
-#cpuTempMax=55.0
-#cpuTempWork=45.0
-cpuTempMax=60.0
-cpuTempWork=50.0
+cpuTempMax=55.0
+cpuTempWork=45.0
 
 
 
@@ -35,8 +34,9 @@ gpio.setup(17, gpio.OUT)
 my_logger.debug("fan: running ...")
 fanRunning = False
 while True:
+	#gpio.output(17, 0)
 	cpuTemp = CPUTemperature()
-	if cpuTemp.temperature >= cpuTempMax:
+	if cpuTemp.temperature >= 55.0:
             if fanRunning == False:
                gpio.output(17, 1)		
                my_logger.debug("fan: on ...")
@@ -46,4 +46,5 @@ while True:
                gpio.output(17, 0)
                my_logger.debug("fan: off ...")
                fanRunning = False
+	print(cpuTemp.temperature)
 	sleep(5)
