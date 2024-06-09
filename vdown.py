@@ -23,7 +23,12 @@ print("Total arguments passed.:", n)
 print("Name of Python script..:", sys.argv[0])
 print("nUrl...................:", sys.argv[1])
 print("Downloading....\n")    
-    
+print("*********************************************************************\n")
+print("Em junho de 2024 a versao do pytube do ubuntu está ruim e dá erro ao fazer download.")
+print("A  versao que esta na maquina orange01 está corrigida e funciona.")
+print("Faça o download de orange01 - grato");
+
+
 #link = input("Please what url?: ")
 Download(sys.argv[1])
 
