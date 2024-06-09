@@ -27,6 +27,12 @@ print("*********************************************************************\n")
 print("Em junho de 2024 a versao do pytube do ubuntu está ruim e dá erro ao fazer download.")
 print("A  versao que esta na maquina orange01 está corrigida e funciona.")
 print("Faça o download de orange01 - grato");
+print("*********************************************************************\n")
+print("*********************************************************************\n")
+print("\n")
+print("\n")
+print("\n")
+print("\n")
 
 
 #link = input("Please what url?: ")
